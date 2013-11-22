@@ -1,0 +1,3 @@
+[submodule "wotgraph"]
+	path = wotgraph
+	url = https://github.com/frewsxcv/wotgraph.git
