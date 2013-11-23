@@ -24,5 +24,8 @@ def home():
 def ego(keyid):
     logging.info('Getting ego network for {}'.format(keyid))
     ego = nx.ego_graph(G, keyid, undirected=True)
+    logging.info('Computing layout')
+    layout = nx.spring_layout(ego)
     data = json_graph.node_link_data(ego)
+    data['layout'] = [x.tolist() for x in layout.values()]
     return Response(json.dumps(data), mimetype='application/json')

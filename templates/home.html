@@ -35,8 +35,8 @@ $('#form').submit(function (event) {
         label: data.nodes[i].label,
         color: data.nodes[i].id == keyid ? '#f00' : '#00f',
         size: 6,
-        x: Math.random(),
-        y: Math.random()
+        x: data.layout[i][0],
+        y: data.layout[i][1]
       });
     }
     for (var i = 0; i < data.links.length; i++) {
