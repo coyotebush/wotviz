@@ -1,7 +1,7 @@
 import json
 import logging
 
-from flask import Flask, Response
+from flask import Flask, Response, render_template
 import networkx as nx
 from networkx.readwrite import json_graph
 import wotgraph.wotgraph as wot
@@ -16,8 +16,8 @@ logging.info("Ready")
 
 
 @app.route('/')
-def hello():
-    return 'Hello World!'
+def home():
+    return render_template('home.html')
 
 
 @app.route('/ego/<keyid>.json')
