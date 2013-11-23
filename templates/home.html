@@ -12,6 +12,10 @@
 <script type="text/javascript" src="{{ url_for('static', filename='sigma.min.js') }}"></script>
 <script type="text/javascript">
 var graph = sigma.init(document.getElementById('graph'));
+graph.drawingProperties({
+  defaultEdgeType: 'curve',
+  defaultEdgeArrow: 'target'
+});
 graph.addNode('hello',{
   label: 'Enter a short key ID above',
   forceLabel: 1,
@@ -22,14 +26,20 @@ graph.addNode('hello',{
 graph.draw();
 
 $('#form').submit(function (event) {
-  $.getJSON('ego/' + $('#keyid').val() + '.json', function (data) {
+  var keyid = $('#keyid').val();
+  $.getJSON('ego/' + keyid + '.json', function (data) {
     console.log(data);
     graph.emptyGraph();
     for (var i = 0; i < data.nodes.length; i++) {
-      graph.addNode(i, { label: data.nodes[i].label, color: '#0000ff', x: Math.random(), y: Math.random() });
+      graph.addNode(i, {
+        label: data.nodes[i].label,
+        color: data.nodes[i].id == keyid ? '#f00' : '#00f',
+        size: 6,
+        x: Math.random(),
+        y: Math.random()
+      });
     }
     for (var i = 0; i < data.links.length; i++) {
-      console.log(data.links[i]);
       graph.addEdge(i, data.links[i].source, data.links[i].target);
     }
     graph.draw();
