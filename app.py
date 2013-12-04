@@ -23,7 +23,7 @@ def home():
 @app.route('/ego/<keyid>.json')
 def ego(keyid):
     logging.info('Getting ego network for {}'.format(keyid))
-    ego = nx.ego_graph(G, keyid, undirected=True)
+    ego = nx.ego_graph(G, keyid, undirected=True, radius=2)
     logging.info('Computing layout')
     layout = nx.spring_layout(ego)
     data = json_graph.node_link_data(ego)
