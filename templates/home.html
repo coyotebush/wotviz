@@ -6,6 +6,13 @@
 <body>
 <form id="form">
   <input type="text" name="keyid" id="keyid" maxlength="8" placeholder="1234ABCD">
+  <select name="radius" id="radius">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+  <input type="submit" value="Go">
 </form>
 <div id="graph" style="height: 600px"></div>
 <script type="text/javascript" src="{{ url_for('static', filename='jquery-2.0.3.min.js') }}"></script>
@@ -27,7 +34,8 @@ graph.draw();
 
 $('#form').submit(function (event) {
   var keyid = $('#keyid').val();
-  $.getJSON('ego/' + keyid + '.json', function (data) {
+  var radius = $('#radius').val();
+  $.getJSON('ego/' + keyid + '-' + radius + '.json', function (data) {
     console.log(data);
     graph.emptyGraph();
     for (var i = 0; i < data.nodes.length; i++) {

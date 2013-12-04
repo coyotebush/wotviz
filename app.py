@@ -20,10 +20,12 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/ego/<keyid>.json')
-def ego(keyid):
+@app.route('/ego/<keyid>-<int:radius>.json')
+def ego(keyid, radius):
+    if radius < 1 or radius > 3:
+        raise ValueError(radius)
     logging.info('Getting ego network for {}'.format(keyid))
-    ego = nx.ego_graph(G, keyid, undirected=True)
+    ego = nx.ego_graph(G, keyid, undirected=True, radius=radius)
     logging.info('Computing layout')
     layout = nx.spring_layout(ego)
     data = json_graph.node_link_data(ego)
